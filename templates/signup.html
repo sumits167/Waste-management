@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Signup</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(to right, #667eea, #764ba2);
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.15);
+      box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border-radius: 1.5rem;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      padding: 2rem;
+      width: 320px;
+      text-align: center;
+    }
+
+    input[type="email"],
+    input[type="password"],
+    input[type="text"] {
+      height: 40px;
+      width: 220px;
+      border: 2px solid black;
+      border-radius: 0.5rem;
+      margin-bottom: 1rem;
+      padding: 5px 10px;
+    }
+
+    button {
+      height: 40px;
+      width: 220px;
+      border-radius: 0.5rem;
+      cursor: pointer;
+      font-size: 15px;
+      font-weight: 750;
+      background-color: rgb(121, 109, 228);
+      color: white;
+      border: none;
+      margin-bottom: 1rem;
+    }
+
+    h2, label {
+      color: white;
+    }
+
+    .warning {
+      background-color: #f8d7da;
+      color: #721c24;
+      padding: 0.5rem;
+      border-radius: 0.5rem;
+      margin: 1rem auto;
+    }
+
+    .succcess {
+      background-color: #d4edda;
+      color: #155724;
+      padding: 0.5rem;
+      border-radius: 0.5rem;
+      margin: 1rem auto;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <form method="POST" action="/signup" onsubmit="return validateForm()">
+      <h2>Signup</h2>
+      <label>Username</label><br/>
+      <input type="text" placeholder="Enter Username" name="Username" 
+             required minlength="3" maxlength="20"
+             pattern="^[a-zA-Z0-9_]+$"
+             title="Username must be 3-20 characters long and contain only letters, numbers, and underscores."/><br/>
+      
+      <label>Email</label><br/>
+      <input type="email" placeholder="Enter Email" name="Email" 
+             required/><br/>
+      
+      <label>Password</label><br/>
+      <input type="password" placeholder="Enter Password" name="password" 
+             required minlength="6" maxlength="20"
+             pattern="^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$"
+             title="Password must be 6-20 characters with at least one uppercase, one lowercase, one number, and one special character."/><br/>
+
+      {% if result=="Successs" %}
+        <p class="succcess">Signup Successful</p>
+      {% elif result=="falses" %}
+        <p class="warning">Signup Failed User Already exist</p>
+      {% else %}
+         <p ></p>
+      {% endif %}
+
+      <button type="submit">Signup</button>
+    </form>
+
+    <form action="/">
+      <button type="submit">Login</button>
+    </form>
+  </div>
+
+  <script>
+    function validateForm() {
+      const username = document.querySelector('input[name="Username"]').value.trim();
+      const email = document.querySelector('input[name="Email"]').value.trim();
+      const password = document.querySelector('input[name="password"]').value;
+
+      // Extra JavaScript validation
+      if (username.length < 3 || username.length > 20) {
+        alert("Username must be 3-20 characters.");
+        return false;
+      }
+
+      const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailPattern.test(email)) {
+        alert("Please enter a valid email address.");
+        return false;
+      }
+
+      const passwordPattern = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&]).{6,20}$/;
+      if (!passwordPattern.test(password)) {
+        alert("Password must have 6-20 characters, including uppercase, lowercase, number, and special character.");
+        return false;
+      }
+
+      return true; // allow form submission
+    }
+  </script>
+</body>
+</html>

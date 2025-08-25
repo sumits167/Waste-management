@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Dashboard</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(to right, #667eea, #764ba2);
+      color: #fff;
+    }
+
+    .nav {
+      display: flex;
+      justify-content: space-between;
+      padding: 20px 5%;
+      align-items: center;
+    }
+
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      font-weight: bold;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+    }
+
+    .add-btn {
+      background-color: #4CAF50;
+      color: white;
+    }
+
+    .logout-btn {
+      background-color: rgb(209, 33, 33);
+      color: white;
+    }
+
+    .main-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px;
+    }
+
+    .glass-box {
+      background: rgba(255, 255, 255, 0.15);
+      box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border-radius: 20px;
+      width: 90%;
+      max-width: 1200px;
+      padding: 20px;
+      color: #fff;
+    }
+
+    h1, h2 {
+      text-align: center;
+      margin-bottom: 10px;
+    }
+
+    .records-header, .record-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 12px 20px;
+      font-weight: bold;
+    }
+
+    .records-header {
+      background-color: rgba(255, 255, 255, 0.2);
+      border-radius: 10px;
+      margin-top: 20px;
+    }
+
+    .record-row {
+      font-weight: normal;
+      background-color: rgba(255, 255, 255, 0.1);
+      border-bottom: 1px solid #ccc;
+      border-radius: 10px;
+      margin-top: 10px;
+    }
+
+    .record-cell {
+      flex: 1;
+      text-align: center;
+    }
+
+    .delete-btn {
+      background-color: rgb(209, 33, 33);
+      padding: 5px 12px;
+      font-size: 14px;
+      border-radius: 6px;
+    }
+
+    @media screen and (max-width: 768px) {
+      .records-header, .record-row {
+        flex-direction: column;
+        align-items: center;
+      }
+      .record-cell {
+        margin: 4px 0;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <div class="nav">
+    <form action="/record">
+      <button class="add-btn">Add Records</button>
+    </form>
+    <form action="/logout" method="post">
+      <button class="logout-btn">Logout</button>
+    </form>
+  </div>
+
+  <!-- Main Dashboard -->
+  <div class="main-container">
+    <div class="glass-box">
+      <h1>Waste Management Account Module</h1>
+      <h2>Welcome: {{ user["Username"] }}</h2>
+      <h2>Total Earned Amount: ₹{{ total_Amount[0]["totalAmount"] }}</h2>
+
+      <!-- Table Header -->
+      <div class="records-header">
+        <div class="record-cell">Date</div>
+        <div class="record-cell">Type</div>
+        <div class="record-cell">Weight</div>
+        <div class="record-cell">Amount</div>
+        <div class="record-cell">Delete</div>
+      </div>
+
+      <!-- Records -->
+      {% for item in records["allRecords"] %}
+      <div class="record-row">
+        <div class="record-cell">{{ item["date"] }}</div>
+        <div class="record-cell">{{ item["wasteType"] }}</div>
+        <div class="record-cell">{{ item["Weight"] }}</div>
+        <div class="record-cell">{{ item["amountEarned"] }}</div>
+        <div class="record-cell">
+          <form method="POST" action="/delete/{{ item['id'] }}">
+            <button class="delete-btn">Delete</button>
+          </form>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+
+</body>
+</html>

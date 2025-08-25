@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Login Page</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(to right, #667eea, #764ba2); /* 💜 Gradient */
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.15); /* Glass effect */
+      box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border-radius: 1.5rem;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      padding: 2rem;
+      width: 300px;
+      text-align: center;
+    }
+
+    input[type="email"],
+    input[type="password"] {
+      height: 40px;
+      width: 200px;
+      border: 2px solid black;
+      border-radius: 0.5rem;
+      margin-bottom: 1rem;
+      padding: 5px 10px;
+    }
+
+    button {
+      height: 40px;
+      width: 200px;
+      border-radius: 0.5rem;
+      cursor: pointer;
+      font-size: 15px;
+      font-weight: 750;
+      background-color: rgb(121, 109, 228);
+      color: white;
+      border: none;
+      margin-bottom: 1rem;
+    }
+
+    h2 {
+      color: white;
+    }
+
+    label {
+      color: white;
+      font-weight: bold;
+    }
+
+    p {
+      color: yellow;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <form action="/handleLogin" method="post">
+      <h2>Login</h2>
+      <label>Email</label><br />
+      <input type="email" placeholder="Enter email" name="email" /><br />
+      <label>Password</label><br />
+      <input type="password" placeholder="Enter password" name="password"/><br />
+      <button>Login</button><br />
+      <p>{{result}}</p>
+    </form>
+
+    <form action="/signup" method="POST">
+      <button>Signup</button>
+    </form>
+  </div>
+</body>
+</html>

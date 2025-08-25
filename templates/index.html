@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Add Records</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(to right, #667eea, #764ba2);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .container {
+      background: rgba(255, 255, 255, 0.15);
+      box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border-radius: 20px;
+      padding: 2rem;
+      width: 360px;
+      color: white;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 30px;
+      font-size: 24px;
+      color: #fff;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: bold;
+    }
+
+    input[type="text"],
+  
+    select[name="waste_type"] {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 20px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 14px;
+    }
+     input[type="number"]
+    {
+      width: 95%;
+      padding: 10px;
+      margin-bottom: 20px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 14px;
+    }
+
+    button {
+      background-color: rgb(121, 109, 228);
+      color: white;
+      padding: 12px 20px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 16px;
+      width: 100%;
+      margin-bottom: 10px;
+    }
+
+    button:hover {
+      background-color: rgb(102, 90, 220);
+    }
+
+    .succcess {
+      background-color: #d4edda;
+      color: #155724;
+      padding: 0.5rem;
+      border-radius: 0.5rem;
+      margin-bottom: 1rem;
+      text-align: center;
+    }
+
+    .warning {
+      background-color: #f8d7da;
+      color: #721c24;
+      padding: 0.5rem;
+      border-radius: 0.5rem;
+      margin-bottom: 1rem;
+      text-align: center;
+    }
+
+    .button-group {
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Add Waste Record</h1>
+    <form method="POST" action="/handleAddRecords">
+      <label for="wasteType">Waste Type</label>
+      <select name="waste_type">
+         <option value="Plastic">Plastic</option>
+  <option value="Metal">Metal</option>
+  <option value="Paper">Paper</option>
+  <option value="Glass">Glass</option>
+  <option value="Electronics">Electronics</option>
+  <option value="Organic">Organic</option>
+  <option value="Textile">Textile</option>
+  <option value="Wood">Wood</option>
+  <option value="Battery">Battery</option>
+  <option value="Rubber">Rubber</option>
+      </select>
+      <!-- <input type="text" id="wasteType" name="waste_type" placeholder="e.g. Plastic, Paper" required /> -->
+
+      <label for="weight">Weight (kg)</label>
+      <input type="number" id="weight" name="weight" step="0.01" placeholder="e.g. 5.50" required />
+
+      {% if addRecordMessage["Success"] %}
+        <p class="succcess">You have Earned: ₹{{ addRecordMessage["Success"] }}</p>
+      {% elif addRecordMessage["failed"] %}
+        <p class="warning">{{ addRecordMessage["failed"] }}</p>
+      {% endif %}
+
+      <div class="button-group">
+        <button type="submit">Add Record</button>
+      </div>
+    </form>
+
+    <form action="/home">
+      <button style="background-color: #444;">Home</button>
+    </form>
+  </div>
+</body>
+</html>
