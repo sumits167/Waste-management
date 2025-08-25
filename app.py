@@ -20,7 +20,7 @@ from model.Trainmodel import mod
 d=date.today()
 dt=datetime.combine(d,datetime.min.time())
 
-# client=pymongo.MongoClient("mongodb+srv://uisumit83:SSV5g7NzF8ZFCSrM@cluster0.bh6rejr.mongodb.net/WasteManage")
+
 client=pymongo.MongoClient("mongodb://127.0.0.1:27017")
 
 db=client["WasteManage"]
